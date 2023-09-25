@@ -72,7 +72,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="flexBetween footer_copyright">
-        <p>@2023 Dribbble. All rights reserved</p>
+        <p className="max-sm:mb-1">@2023 Dribbble. All rights reserved</p>
         <p className="text-gray">
           <span className="text-black font-semibold">41,412 </span>Projects
           submitted{" "}

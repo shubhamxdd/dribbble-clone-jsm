@@ -1,5 +1,7 @@
 export default function Home() {
   return (
-      <p className="text-3xl font-bold text-center mt-5">Hi</p>
+    <section className="flex-start flex-col paddings mb-16">
+      <p className="text-3xl font-bold text-center">Hi</p>
+    </section>
   );
 }

@@ -3,9 +3,9 @@ import { g, auth, config } from "@grafbase/sdk";
 const User = g.model("User", {
   name: g.string().length({ min: 3, max: 20 }),
   email: g.string().unique(),
-  avatarURL: g.url(),
+  avatarUrl: g.url(),
   description: g.string().optional(),
-  githubURL: g.url().optional(),
+  githubUrl: g.url().optional(),
   projects: g
     .relation(() => Project)
     .list()
@@ -13,11 +13,11 @@ const User = g.model("User", {
 });
 
 const Project = g.model("Project", {
-  tiile: g.string().length({ min: 3, max: 200 }),
+  title: g.string().length({ min: 3, max: 200 }),
   description: g.string(),
   image: g.url(),
   liveSiteUrl: g.url().optional(),
-  githubURL: g.url().optional(),
+  githubUrl: g.url().optional(),
   category: g.string().search(),
   createdBy: g.relation(() => User),
 });

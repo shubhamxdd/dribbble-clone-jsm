@@ -2,6 +2,7 @@ import { NavLinks } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
 import AuthProvider from "./AuthProvider";
+import MobileNav from "./MobileNav";
 
 const Header = () => {
   const session = {};
@@ -25,11 +26,15 @@ const Header = () => {
         {session ? (
           <>
             UserImage
-            <Link href="/create-project">Share Your Work</Link>
+            <div className="max-xl:flex hidden">
+              <Link href="/create-project">Share Your Work</Link>
+            </div>
           </>
         ) : (
           <AuthProvider />
         )}
+        {/* mobile nav */}
+        <MobileNav />
       </div>
     </nav>
   );

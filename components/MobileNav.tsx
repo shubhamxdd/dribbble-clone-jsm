@@ -10,7 +10,6 @@ const MobileNav = () => {
   const onClick = () => setShow(!show);
   return (
     <div>
-      {/* mobile nav */}
       <div onClick={onClick} className="max-xl:flex hidden">
         {show ? (
           <Image
@@ -29,7 +28,7 @@ const MobileNav = () => {
         )}
         <div>
           {show && (
-            <div className="bg-slate-100 px-3 pr-8 py-2 rounded-xl absolute right-0 mt-[55px] mr-7">
+            <div className="bg-light-white-100 px-3 pr-8 py-2 rounded-xl absolute right-0 mt-[55px] mr-7">
               <ul>
                 {NavLinks.map((link) => {
                   return (

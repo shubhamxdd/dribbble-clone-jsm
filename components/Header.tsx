@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import AuthProvider from "./AuthProvider";
 import MobileNav from "./MobileNav";
+import { getCurrentUser } from "@/lib/session";
 
-const Header = () => {
-  const session = {};
+const Header = async () => {
+  const session = await getCurrentUser();
   return (
     <nav className="flexBetween navbar">
       <div className="flex-1 flexStart gap-10">
@@ -23,9 +24,18 @@ const Header = () => {
         </ul>
       </div>
       <div className="flexCenter gap-4">
-        {session ? (
+        {session?.user ? (
           <>
-            UserImage
+            {/* user image aane ke baad make image ka nav  */}
+            {session.user.image && (
+              <Image
+                src={session.user.image}
+                alt={`${session.user.name}'s image`}
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
+            )}
             <div className="max-xl:flex hidden">
               <Link href="/create-project">Share Your Work</Link>
             </div>

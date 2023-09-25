@@ -1,6 +1,7 @@
 import { NavLinks } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
+import AuthProvider from "./AuthProvider";
 
 const Header = () => {
   const session = {};
@@ -27,7 +28,7 @@ const Header = () => {
             <Link href="/create-project">Share Your Work</Link>
           </>
         ) : (
-          ""
+          <AuthProvider />
         )}
       </div>
     </nav>

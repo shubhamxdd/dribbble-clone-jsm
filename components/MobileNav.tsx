@@ -1,11 +1,16 @@
 "use client";
 
+import { SessionInterface } from "@/common.types";
 import { NavLinks } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-const MobileNav = () => {
+interface MobileNavProps {
+  session: SessionInterface;
+}
+
+const MobileNav = ({ session }: MobileNavProps) => {
   const [show, setShow] = useState(false);
   const onClick = () => setShow(!show);
   return (

@@ -4,6 +4,7 @@ import Link from "next/link";
 import AuthProvider from "./AuthProvider";
 import MobileNav from "./MobileNav";
 import { getCurrentUser } from "@/lib/session";
+import ProfileMenu from "./ProfileMenu";
 
 const Header = async () => {
   const session = await getCurrentUser();
@@ -26,16 +27,7 @@ const Header = async () => {
       <div className="flexCenter gap-4">
         {session?.user ? (
           <>
-            {/* user image aane ke baad make image ka nav  */}
-            {session.user.image && (
-              <Image
-                src={session.user.image}
-                alt={`${session.user.name}'s image`}
-                width={40}
-                height={40}
-                className="rounded-full"
-              />
-            )}
+            <ProfileMenu session={session} />
             <div className="max-xl:flex hidden">
               <Link href="/create-project">Share Your Work</Link>
             </div>
@@ -44,7 +36,8 @@ const Header = async () => {
           <AuthProvider />
         )}
         {/* mobile nav */}
-        <MobileNav />
+        {/* TODO */}
+        <MobileNav session={session} />
       </div>
     </nav>
   );

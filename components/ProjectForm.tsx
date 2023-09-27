@@ -5,8 +5,10 @@ import Image from "next/image";
 import FormField from "./FormField";
 import { categoryFilters } from "@/constants";
 import CustomMenu from "./CustomMenu";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import Button from "./Button";
+import { createNewProject, fetchToken } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 
 type Props = {
   type: string;
@@ -14,12 +16,13 @@ type Props = {
 };
 
 const ProjectForm = ({ type, session }: Props) => {
+  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
     image: "",
     title: "",
     description: "",
-    siteUrl: "",
+    liveSiteUrl: "",
     githubUrl: "",
     category: "",
   });
@@ -44,8 +47,26 @@ const ProjectForm = ({ type, session }: Props) => {
   const handleStateChange = (fieldName: string, value: string) => {
     setForm((prev) => ({ ...prev, [fieldName]: value }));
   };
+  const handleFormSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const { token } = await fetchToken();
+
+    try {
+      if (type === "create") {
+        await createNewProject(form, session.user.id, token);
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <form onSubmit={(e) => e.preventDefault()} className="flexStart form">
+    <form onSubmit={handleFormSubmit} className="flexStart form">
       <div className="flexStart form_image-container">
         <label htmlFor="poster" className="flexCenter form_image-label">
           {!form.image && "Choose a poster for your project"}
@@ -84,9 +105,9 @@ const ProjectForm = ({ type, session }: Props) => {
       <FormField
         type="url"
         title="Website URL"
-        state={form.siteUrl}
+        state={form.liveSiteUrl}
         placeholder="https://example.com"
-        setState={(value) => handleStateChange("siteUrl", value)}
+        setState={(value) => handleStateChange("liveSiteUrl", value)}
       />
       <FormField
         type="url"

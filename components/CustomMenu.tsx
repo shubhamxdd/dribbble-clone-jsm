@@ -1,5 +1,6 @@
-import { Menu } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import Image from "next/image";
+import { Fragment } from "react";
 
 interface Props {
   title: string;
@@ -26,20 +27,30 @@ const CustomMenu = ({ filters, setState, state, title }: Props) => {
             />
           </Menu.Button>
         </div>
-        <Menu.Items className="flexStart custom_menu-items">
-          {filters.map((filter) => (
-            <Menu.Item key={filter}>
-              <button
-                type="button"
-                value={filter}
-                className="custom_menu-item"
-                onClick={(e) => setState(e.currentTarget.value)}
-              >
-                {filter}
-              </button>
-            </Menu.Item>
-          ))}
-        </Menu.Items>
+        <Transition
+          as={Fragment}
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
+        >
+          <Menu.Items className="flexStart custom_menu-items">
+            {filters.map((filter) => (
+              <Menu.Item key={filter}>
+                <button
+                  type="button"
+                  value={filter}
+                  className="custom_menu-item"
+                  onClick={(e) => setState(e.currentTarget.value)}
+                >
+                  {filter}
+                </button>
+              </Menu.Item>
+            ))}
+          </Menu.Items>
+        </Transition>
       </Menu>
     </div>
   );

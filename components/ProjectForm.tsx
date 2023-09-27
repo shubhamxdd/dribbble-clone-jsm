@@ -5,7 +5,7 @@ import Image from "next/image";
 import FormField from "./FormField";
 import { categoryFilters } from "@/constants";
 import CustomMenu from "./CustomMenu";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 type Props = {
   type: string;
@@ -22,7 +22,24 @@ const ProjectForm = ({ type, session }: Props) => {
     githubUrl: "",
     category: "",
   });
-  const handleChangeImage = () => {};
+  const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+
+    if (!file.type.includes("image")) return alert("Please upload an image");
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      const res = reader.result as string;
+
+      handleStateChange("image", res);
+    };
+  };
   const handleStateChange = (fieldName: string, value: string) => {
     setForm((prev) => ({ ...prev, [fieldName]: value }));
   };
